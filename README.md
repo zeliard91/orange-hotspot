@@ -14,7 +14,7 @@ Usefull to maintain connexion.
 Installation is a quick process, you just have to install it whith composer : 
 
 ``` bash
-$ php composer.phar create-project zeliard91/orange-hotspot dev-master
+$ php composer.phar create-project --prefer-dist zeliard91/orange-hotspot ./orange-hostpost dev-master
 ```
 
 ## Configuration
