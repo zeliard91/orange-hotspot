@@ -1,0 +1,3 @@
+parameters: 
+    login: email@orange.fr
+    pass: secret

@@ -1,0 +1,35 @@
+#!/usr/bin/env php
+<?php
+require __DIR__.'/../vendor/autoload.php';
+
+
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Helper\HelperSet;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Config\Loader\LoaderResolver;
+use Symfony\Component\Config\Loader\DelegatingLoader;
+
+use Orange\Config\YamlLoader;
+use Orange\Command\StatusCommand;
+use Orange\Command\CheckCommand;
+use Orange\Command\LogoutCommand;
+
+// Load config values
+$configDirectories = array(__DIR__.'/config');
+$locator = new FileLocator($configDirectories);
+$loaderResolver = new LoaderResolver(array(new YamlLoader($locator)));
+$delegatingLoader = new DelegatingLoader($loaderResolver);
+$config = $delegatingLoader->load(__DIR__.'/config/parameters.yml');
+
+// Define Console HelperSet
+$HelperSet = new HelperSet(array(
+    'formatter' => new Symfony\Component\Console\Helper\FormatterHelper(),
+    'config'    => new Orange\Helper\ConfigHelper($config)
+));
+
+$application = new Application();
+$application->setHelperSet($HelperSet);
+$application->add(new StatusCommand);
+$application->add(new CheckCommand);
+$application->add(new LogoutCommand);
+$application->run();
