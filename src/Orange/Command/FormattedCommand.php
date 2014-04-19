@@ -26,8 +26,7 @@ class FormattedCommand extends Command
      */
     public function banner($text, $force_display = false)
     {
-        if ($this->is_verbose || $force_display == true)
-        {
+        if ($this->is_verbose || $force_display == true) {
             $formattedBlock = $this->formatter->formatBlock($text, 'bg=blue');
             $this->output->writeln($formattedBlock);
         }
@@ -45,8 +44,7 @@ class FormattedCommand extends Command
             $section_name,
             $message
         );
-        if ($this->is_verbose)
-        {
+        if ($this->is_verbose) {
             $this->output->writeln($formattedLine);
         }
         $this->syslog($message, 'info');
@@ -59,10 +57,9 @@ class FormattedCommand extends Command
      * @param  [boolean] $force_display [description]
      * @return [type]                 [description]
      */
-    protected function outputMessage($message, $type = 'info', $force_display = false )
+    protected function outputMessage($message, $type = 'info', $force_display = false)
     {
-        if ($this->is_verbose || $force_display == true)
-        {
+        if ($this->is_verbose || $force_display == true) {
             $messages = array($message);
             $formattedBlock = $this->formatter->formatBlock($messages, $type);
             $this->output->writeln($formattedBlock);
