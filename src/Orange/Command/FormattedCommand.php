@@ -8,7 +8,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class FormattedCommand extends Command
 {
 
-    private $output;
+    protected $output;
     private $formatter;
 
     protected function execute(InputInterface $input, OutputInterface $output)

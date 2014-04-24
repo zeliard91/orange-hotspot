@@ -27,6 +27,11 @@ class LogoutCommand extends Command
         $client = new Client();
         try {
             $crawler = $client->request('GET', 'https://hautdebitmobile.orange.fr:8443/home/disconnect');
+
+            // Output raw reponse if (-vv)
+            if ($this->output->getVerbosity() > OutputInterface::VERBOSITY_VERBOSE) {
+                echo $client->getResponse();
+            }
         } catch (\Exception $e) {
             $this->outputError('Connection error : '.$e->getMessage(), true);
             exit(1);

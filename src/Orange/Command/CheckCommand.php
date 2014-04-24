@@ -71,7 +71,19 @@ class CheckCommand extends Command
         if ($client->getRequest()->getUri() == 'http://www.orange.fr') {
             $this->outputMessage('Login success !');
         } else {
-            $this->outputError('Login failed');
+            $error_mssg = 'Login failed';
+
+            $div_error = $crawler->filterXPath("//div[@id='loginFormWassupErrorMessage']");
+            if ($div_error->count() == 1) {
+                $error_mssg .= ' : '.trim($div_error->text());
+            }
+            
+            $this->outputError($error_mssg);
+
+            // Output raw reponse if (-vv)
+            if ($this->output->getVerbosity() > OutputInterface::VERBOSITY_VERBOSE) {
+                echo $client->getResponse();
+            }
             return 1;
         }
     }
